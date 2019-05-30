@@ -1,0 +1,12 @@
+# need sudo perms to execute teh docker build
+sudo: required
+
+# trvis will install a copy of docker into the little docker container that builds.
+services:
+  - docker
+
+before_install:
+  - docker build -t davidbtbt/docker-react -f Dockerfile.dev .
+
+script:
+  - docker run davidbtbt/docker-react npm run test -- --coverage
