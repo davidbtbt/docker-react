@@ -1,0 +1,23 @@
+version: '3'
+services:
+  web:
+    build:
+      #tell it where the react project is. could have been ./reactproject
+      context: .    
+      dockerfile: ./Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      # use the node_modules from inside the container.
+      - /app/node_modules
+      #maps the outside folder to the /app folder in the container
+      - .:/app 
+  tests:
+    build:
+      #tell it where the react project is. could have been ./reactproject
+      context: .    
+      dockerfile: ./Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - .:/app
+    command: ["npm", "run", "test"]
