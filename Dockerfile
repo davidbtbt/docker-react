@@ -1,5 +1,6 @@
 FROM node:alpine as builder
 WORKDIR /app
+# AWS likes the long form ./ instead of just .
 COPY package.json ./
 RUN npm install
 COPY ./ ./
