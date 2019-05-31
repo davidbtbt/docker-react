@@ -10,3 +10,20 @@ before_install:
 
 script:
   - docker run  -e CI=true davidbtbt/docker-react npm run test -- --coverage
+
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-2" #copy from aws app url
+  app: "docker"     # copy from aws
+  env: "Docker-env" # copy from aws page
+  bucket_name: "elasticbeanstalk-us-east-2-430430707020"  #copy from S3 url
+  bucket_path: "docker"   # same as app name
+  on:
+    branch: master    #scm deploy hook.
+  access_key_id: "$AWS_ACCESS_KEY"
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
+
+#http://docker-env.xccpmhayhe.us-east-2.elasticbeanstalk.com/
+#S3 -> https://s3.console.aws.amazon.com/s3/buckets/elasticbeanstalk-us-east-2-430430707020/?region=us-east-2&tab=overview
